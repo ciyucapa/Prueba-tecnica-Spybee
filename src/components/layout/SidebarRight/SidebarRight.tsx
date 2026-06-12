@@ -14,10 +14,15 @@ import {
 import RightItem from "./RightItem";
 import styles from "./SidebarRight.module.scss";
 
+interface SidebarRightProps {
+  onCreateIncident: () => void;
+}
+
 const items = [
   {
     type: "primary",
     icon: <Plus size={24} />,
+    action: "createIncident",
   },
   {
     type: "menu",
@@ -52,7 +57,9 @@ const items = [
   },
 ];
 
-export default function SidebarRight() {
+export default function SidebarRight({
+  onCreateIncident,
+}: SidebarRightProps)  {
   return (
     <aside className={styles.sidebar}>
       {items.map((item, index) => {
@@ -66,11 +73,16 @@ export default function SidebarRight() {
         }
 
         return (
-          <RightItem
+        <RightItem
             key={index}
             icon={item.icon}
             primary={item.type === "primary"}
-          />
+            onClick={
+                "action" in item && item.action === "createIncident"
+                ? onCreateIncident
+                : undefined
+            }
+        />  
         );
       })}
     </aside>

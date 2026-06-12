@@ -1,0 +1,15 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.label span {
+  color: #ff3b30;
+}
