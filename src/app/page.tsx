@@ -1,7 +1,12 @@
+import Header from "@/components/layout/Header/Header";
+import MapView from "@/components/map/MapView/MapView";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Spybee Prueba tecnica</h1>
-    </main>
+    <>
+      <MapView />
+
+      <Header/>
+    </>
   );
 }
