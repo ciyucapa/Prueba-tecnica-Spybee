@@ -1,49 +1,195 @@
+"use client";
+
+import { useState } from "react";
+
 import FormField from "../FormField/FormField";
 import styles from "./IncidentForm.module.scss";
 
 import CategoryField from "../CategoryField/CategoryField";
+import LocationSection from "../LocationSection/LocationSection";
+import ActionButtons from "../ActionButtons/ActionButtons";
 
-export default function IncidentForm() {
-  return (
-    <form className={styles.form}>
-      <FormField
-        label="Título"
-        required
-      >
-        <input type="text" />
-      </FormField>
+interface IncidentFormProps {
+    onClose: () => void;
+}
 
-      <FormField
-        label="Descripción"
-        required
-      >
-        <textarea rows={5}></textarea>
-      </FormField>
+const users = [
+    "Juan Pérez",
+    "Pedro Gómez",
+    "María López",
+];
 
-      <div className={styles.separator}></div>
+export default function IncidentForm({
+    onClose,
+}: IncidentFormProps) {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [dueDate, setDueDate] = useState("");
+    const [category, setCategory] = useState("");
+    const [priority, setPriority] = useState("");
 
-      <FormField
-        label="Fecha de vencimiento"
-        required
-      >
-        <input type="date" />
-      </FormField>
+    const [tags, setTags] = useState("");
+    const [assignees, setAssignees] = useState("");
+    const [observers, setObservers] = useState("");
 
-      <FormField
-        label="Categoría"
-        required
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
+    const [locationDetail, setLocationDetail] = useState("");
+
+    const [attachments, setAttachments] = useState<FileList | null>(null);
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        console.log({
+            title,
+            description,
+            dueDate,
+            category,
+            priority,
+            tags,
+            assignees,
+            observers,
+            latitude,
+            longitude,
+            locationDetail,
+            attachments,
+        });
+    };
+
+
+    return (
+        <form
+            className={styles.form}
+            onSubmit={handleSubmit}
         >
-        <CategoryField />
-    </FormField>
+            <FormField
+                label="Título"
+                required
+            >
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+            </FormField>
 
-      <FormField
-        label="Prioridad"
-        required
-      >
-        <select>
-          <option>Seleccionar prioridad</option>
-        </select>
-      </FormField>
-    </form>
-  );
+            <FormField
+                label="Descripción"
+                required
+            >
+                <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+            </FormField>
+
+            <div className={styles.separator}></div>
+
+            <FormField
+                label="Fecha de vencimiento"
+                required
+            >
+                <input
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                />
+            </FormField>
+
+            <FormField
+                label="Categoría"
+                required
+            >
+                <CategoryField
+                    value={category}
+                    onChange={setCategory}
+                />
+            </FormField>
+
+            <FormField
+                label="Prioridad"
+                required
+            >
+                <select
+                    value={priority}
+                    onChange={(e) => setPriority(e.target.value)}
+                >
+                    <option value="">Seleccionar prioridad</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Media</option>
+                    <option value="Baja">Baja</option>
+                </select>
+            </FormField>
+
+            <FormField label="Etiquetas">
+                <input
+                    type="text"
+                    placeholder="Seleccionar etiquetas"
+                    value={tags}
+                    onChange={(e) => setTags(e.target.value)}
+                />
+            </FormField>
+
+            <FormField label="Asignados">
+                <select
+                    value={assignees}
+                    onChange={(e) => setAssignees(e.target.value)}
+                >
+                    <option value="">Seleccionar asignado</option>
+
+                    {users.map((user) => (
+                        <option
+                            key={user}
+                            value={user}
+                        >
+                            {user}
+                        </option>
+                    ))}
+                </select>
+            </FormField>
+
+            <FormField label="Observadores">
+                <select
+                    value={observers}
+                    onChange={(e) => setObservers(e.target.value)}
+                >
+                    <option value="">Seleccionar observador</option>
+                    <option value="María">María</option>
+                    <option value="Ana">Ana</option>
+                </select>
+            </FormField>
+
+            <LocationSection
+                latitude={latitude}
+                longitude={longitude}
+                locationDetail={locationDetail}
+                onLatitudeChange={setLatitude}
+                onLongitudeChange={setLongitude}
+                onLocationDetailChange={setLocationDetail}
+            />
+
+            <div className={styles.attachments}>
+                <h3>Archivos Adjuntos</h3>
+
+                <input
+                    type="file"
+                    multiple
+                    onChange={(e) => setAttachments(e.target.files)}
+                />
+
+                {attachments && (
+                    <ul className={styles.fileList}>
+                        {Array.from(attachments).map((file) => (
+                            <li key={file.name}>{file.name}</li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+
+            <ActionButtons
+                onCancel={onClose}
+            />
+        </form>
+    );
 }

@@ -1,37 +1,23 @@
-.header{
-    position:absolute;
-
-    top:0;
-
-    left:0;
-
-    right:0;
-
-    height:78px;
-
-    background:#242424;
-
-    z-index:1000;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:0 32px;
-
-    color:white;
+.header {
+    position       : absolute;
+    top            : 0;
+    left           : 0;
+    right          : 0;
+    height         : 78px;
+    background     : #242424;
+    z-index        : 1000;
+    display        : flex;
+    align-items    : center;
+    justify-content: space-between;
+    padding        : 0 32px;
+    color          : white;
 }
 
-.logo{
-
-    font-size:36px;
-
-    font-weight:bold;
+.logo {
+    font-size  : 36px;
+    font-weight: bold;
 }
 
-.user{
-
-    font-size:18px;
+.user {
+    font-size: 18px;
 }

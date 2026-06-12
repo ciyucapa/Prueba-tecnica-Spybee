@@ -28,7 +28,7 @@ export default function IncidentModal({
           </button>
         </div>
 
-        <IncidentForm />
+        <IncidentForm onClose={onClose} />
       </div>
     </div>
   );
