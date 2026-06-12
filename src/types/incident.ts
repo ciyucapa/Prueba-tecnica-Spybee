@@ -5,4 +5,14 @@ export interface Incident {
   dueDate: string;
   category: string;
   priority: string;
+
+  tags: string;
+  assignees: string;
+  observers: string;
+
+  location: {
+    latitude: string;
+    longitude: string;
+    detail: string;
+  };
 }

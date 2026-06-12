@@ -8,6 +8,7 @@ import styles from "./IncidentForm.module.scss";
 import CategoryField from "../CategoryField/CategoryField";
 import LocationSection from "../LocationSection/LocationSection";
 import ActionButtons from "../ActionButtons/ActionButtons";
+import { useIncidentStore } from "@/store/incidentStore";
 
 interface IncidentFormProps {
     onClose: () => void;
@@ -37,24 +38,64 @@ export default function IncidentForm({
     const [locationDetail, setLocationDetail] = useState("");
 
     const [attachments, setAttachments] = useState<FileList | null>(null);
+    const [error, setError] = useState("");
+
+    const { addIncident } = useIncidentStore();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log({
+        if (
+            !title.trim() ||
+            !description.trim() ||
+            !category ||
+            !priority ||
+            !latitude ||
+            !longitude
+        ) {
+            setError("Completa todos los campos obligatorios.");
+            return;
+        }
+
+        setError("");
+
+        addIncident({
+            id: crypto.randomUUID(),
+
             title,
             description,
             dueDate,
             category,
             priority,
+
             tags,
             assignees,
             observers,
-            latitude,
-            longitude,
-            locationDetail,
-            attachments,
+
+            location: {
+                latitude,
+                longitude,
+                detail: locationDetail,
+            },
         });
+
+        setTitle("");
+        setDescription("");
+        setDueDate("");
+        setCategory("");
+        setPriority("");
+
+        setTags("");
+        setAssignees("");
+        setObservers("");
+
+        setLatitude("");
+        setLongitude("");
+        setLocationDetail("");
+
+        setAttachments(null);
+
+        onClose();
     };
 
 
@@ -63,6 +104,12 @@ export default function IncidentForm({
             className={styles.form}
             onSubmit={handleSubmit}
         >
+
+            {error && (
+                <div className={styles.error}>
+                    {error}
+                </div>
+            )}
             <FormField
                 label="Título"
                 required
