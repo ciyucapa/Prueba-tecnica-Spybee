@@ -7,13 +7,14 @@ import SidebarLeft from "@/components/layout/SidebarLeft/SidebarLeft";
 import SidebarRight from "@/components/layout/SidebarRight/SidebarRight";
 import MapView from "@/components/map/MapView/MapView";
 import IncidentModal from "@/components/incident/IncidentModal/IncidentModal";
+import ProtectedRoute from "@/components/auth/ProtectedRoute/ProtectedRoute";
 
 export default function Home() {
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <ProtectedRoute>
       <MapView />
 
       <Header/>
@@ -28,7 +29,7 @@ export default function Home() {
         open={open}
         onClose={() => setOpen(false)}
       />
-    </>
+    </ProtectedRoute>
     
   );
 }

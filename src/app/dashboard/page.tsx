@@ -10,11 +10,14 @@ import Filters from "@/components/dashboard/Filters/Filters";
 import Pagination from "@/components/dashboard/Pagination/Pagination";
 import { DashboardIncident } from "@/types/dashboardIncident";
 import IncidentDetailModal from "@/components/dashboard/IncidentDetailModal/IncidentDetailModal";
-import { useDashboard } from "@/hooks/useDashboard"; 
+import { useDashboard } from "@/hooks/useDashboard";
 import { useDashboardStats } from "@/hooks/useDashboardStats";
+import ProtectedRoute from "@/components/auth/ProtectedRoute/ProtectedRoute";
+import Header from "@/components/layout/Header/Header";
+
 
 export default function DashboardPage() {
-    
+
     const stats = useDashboardStats();
     const {
         priorityFilter,
@@ -33,63 +36,65 @@ export default function DashboardPage() {
         clearFilters,
     } = useDashboard();
 
-
     const [selectedIncident, setSelectedIncident] =
         useState<DashboardIncident | null>(null);
 
 
     return (
-        <main style={{ padding: "32px" }}>
-            <DashboardGrid>
-                {stats.map((stat) => (
-                    <StatsCard
-                        key={stat.title}
-                        title={stat.title}
-                        value={stat.value}
-                        active={priorityFilter === stat.filter}
-                        onClick={() =>
-                            setPriorityFilter(
-                                priorityFilter === stat.filter
-                                    ? ""
-                                    : stat.filter
-                            )
-                        }
-                    />
-                ))}
-            </DashboardGrid>
-            <Filters
-                priority={priorityFilter}
-                status={statusFilter}
-                search={search}
-                onPriorityChange={setPriorityFilter}
-                onStatusChange={setStatusFilter}
-                onSearchChange={setSearch}
-                onClear={clearFilters}
-            />
-
-            <p className={styles.results}>
-                Mostrando {from} - {to} de {filteredIncidents.length} incidencias
-            </p>
-
-            <IncidentTable
-                incidents={paginatedIncidents}
-                onRowClick={setSelectedIncident}
-                onClear={clearFilters}
-            />
-
-            <Pagination
-                currentPage={currentPage}
-                totalItems={filteredIncidents.length}
-                itemsPerPage={ITEMS_PER_PAGE}
-                onPageChange={setCurrentPage}
-            />
-
-            {selectedIncident && (
-                <IncidentDetailModal
-                    incident={selectedIncident}
-                    onClose={() => setSelectedIncident(null)}
+        <ProtectedRoute>
+            <Header/>
+            <main style={{ padding: "110px 32px 32px" }}>
+                <DashboardGrid>
+                    {stats.map((stat) => (
+                        <StatsCard
+                            key={stat.title}
+                            title={stat.title}
+                            value={stat.value}
+                            active={priorityFilter === stat.filter}
+                            onClick={() =>
+                                setPriorityFilter(
+                                    priorityFilter === stat.filter
+                                        ? ""
+                                        : stat.filter
+                                )
+                            }
+                        />
+                    ))}
+                </DashboardGrid>
+                <Filters
+                    priority={priorityFilter}
+                    status={statusFilter}
+                    search={search}
+                    onPriorityChange={setPriorityFilter}
+                    onStatusChange={setStatusFilter}
+                    onSearchChange={setSearch}
+                    onClear={clearFilters}
                 />
-            )}
-        </main>
+
+                <p className={styles.results}>
+                    Mostrando {from} - {to} de {filteredIncidents.length} incidencias
+                </p>
+
+                <IncidentTable
+                    incidents={paginatedIncidents}
+                    onRowClick={setSelectedIncident}
+                    onClear={clearFilters}
+                />
+
+                <Pagination
+                    currentPage={currentPage}
+                    totalItems={filteredIncidents.length}
+                    itemsPerPage={ITEMS_PER_PAGE}
+                    onPageChange={setCurrentPage}
+                />
+
+                {selectedIncident && (
+                    <IncidentDetailModal
+                        incident={selectedIncident}
+                        onClose={() => setSelectedIncident(null)}
+                    />
+                )}
+            </main>
+        </ProtectedRoute>
     );
 }

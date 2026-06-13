@@ -4,20 +4,108 @@
     left           : 0;
     right          : 0;
     height         : 78px;
-    background     : #242424;
-    z-index        : 1000;
-    display        : flex;
-    align-items    : center;
-    justify-content: space-between;
     padding        : 0 32px;
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    background     : #242424;
     color          : white;
+    z-index        : 1000;
 }
 
 .logo {
-    font-size  : 36px;
-    font-weight: bold;
+    font-size  : 34px;
+    font-weight: 700;
+}
+
+.title {
+    font-size  : 22px;
+    font-weight: 600;
+}
+
+.actions {
+    display    : flex;
+    align-items: center;
+    gap        : 16px;
 }
 
 .user {
-    font-size: 18px;
+    display    : flex;
+    align-items: center;
+    gap        : 10px;
+    font-size  : 15px;
+    font-weight: 500;
+}
+
+.avatar {
+    width          : 40px;
+    height         : 40px;
+    border-radius  : 50%;
+    background     : #ffd400;
+    color          : #222;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    font-weight    : 700;
+}
+
+.logoutButton {
+    height       : 40px;
+    padding      : 0 18px;
+    border       : none;
+    border-radius: 8px;
+    background   : #ffd400;
+    color        : #222;
+    font-weight  : 600;
+    cursor       : pointer;
+    transition   : all .2s ease;
+}
+
+.logoutButton:hover {
+    background: #f5cb00;
+    transform : translateY(-1px);
+}
+
+.logoutButton:active {
+    transform: translateY(0);
+}
+
+.navButton {
+    height       : 40px;
+    padding      : 0 18px;
+    border       : 1px solid #ffd400;
+    border-radius: 8px;
+    background   : transparent;
+    color        : #ffd400;
+    font-weight  : 600;
+    cursor       : pointer;
+    transition   : all .2s ease;
+}
+
+.navButton:hover {
+    background: #ffd400;
+    color     : #222;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 0 16px;
+    }
+
+    .title {
+        display: none;
+    }
+
+    .user span {
+        display: none;
+    }
+
+    .logoutButton {
+        padding  : 0 12px;
+        font-size: 13px;
+    }
+
+    .logo {
+        font-size: 28px;
+    }
 }
