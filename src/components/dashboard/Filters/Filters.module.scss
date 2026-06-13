@@ -43,6 +43,26 @@
     border-color: #ffd400;
 }
 
+.clearButton {
+    height: 44px;
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #ffd400;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.clearButton:hover {
+    opacity: 0.9;
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

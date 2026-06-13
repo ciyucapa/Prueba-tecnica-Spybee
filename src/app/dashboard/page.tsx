@@ -9,6 +9,9 @@ import DashboardGrid from "@/components/dashboard/DashboardGrid/DashboardGrid";
 import IncidentTable from "@/components/dashboard/IncidentTable/IncidentTable";
 import Filters from "@/components/dashboard/Filters/Filters";
 import Pagination from "@/components/dashboard/Pagination/Pagination";
+import { DashboardIncident } from "@/types/dashboardIncident";
+import IncidentDetailModal from "@/components/dashboard/IncidentDetailModal/IncidentDetailModal";
+
 
 
 export default function DashboardPage() {
@@ -28,18 +31,22 @@ export default function DashboardPage() {
         {
             title: "Total incidencias",
             value: incidents.length,
+            filter: "",
         },
         {
             title: "Prioridad Alta",
             value: high,
+            filter: "high",
         },
         {
             title: "Prioridad Media",
             value: medium,
+            filter: "medium",
         },
         {
             title: "Prioridad Baja",
             value: low,
+            filter: "low",
         },
     ];
 
@@ -91,6 +98,15 @@ export default function DashboardPage() {
         filteredIncidents.length
     );
 
+    const clearFilters = () => {
+        setPriorityFilter("");
+        setStatusFilter("");
+        setSearch("");
+    };
+
+    const [selectedIncident, setSelectedIncident] =
+        useState<DashboardIncident | null>(null);
+
 
     return (
         <main style={{ padding: "32px" }}>
@@ -100,6 +116,14 @@ export default function DashboardPage() {
                         key={stat.title}
                         title={stat.title}
                         value={stat.value}
+                        active={priorityFilter === stat.filter}
+                        onClick={() =>
+                            setPriorityFilter(
+                                priorityFilter === stat.filter
+                                    ? ""
+                                    : stat.filter
+                            )
+                        }
                     />
                 ))}
             </DashboardGrid>
@@ -110,14 +134,17 @@ export default function DashboardPage() {
                 onPriorityChange={setPriorityFilter}
                 onStatusChange={setStatusFilter}
                 onSearchChange={setSearch}
+                onClear={clearFilters}
             />
 
             <p className={styles.results}>
-                 Mostrando {from} - {to} de {filteredIncidents.length} incidencias
+                Mostrando {from} - {to} de {filteredIncidents.length} incidencias
             </p>
 
             <IncidentTable
                 incidents={paginatedIncidents}
+                onRowClick={setSelectedIncident}
+                onClear={clearFilters}
             />
 
             <Pagination
@@ -126,6 +153,13 @@ export default function DashboardPage() {
                 itemsPerPage={ITEMS_PER_PAGE}
                 onPageChange={setCurrentPage}
             />
+
+            {selectedIncident && (
+                <IncidentDetailModal
+                    incident={selectedIncident}
+                    onClose={() => setSelectedIncident(null)}
+                />
+            )}
         </main>
     );
 }

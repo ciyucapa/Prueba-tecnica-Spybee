@@ -8,6 +8,7 @@ interface FiltersProps {
   onPriorityChange: (value: string) => void;
   onStatusChange: (value: string) => void;
   onSearchChange: (value: string) => void;
+  onClear: () => void;
 }
 
 export default function Filters({
@@ -16,7 +17,8 @@ export default function Filters({
   search,
   onPriorityChange,
   onStatusChange,
-  onSearchChange
+  onSearchChange,
+  onClear
 }: FiltersProps) {
   return (
     <div className={styles.container}>
@@ -48,6 +50,15 @@ export default function Filters({
         value={search}
         onChange={(e) => onSearchChange(e.target.value)}
       />
+      {(priority || status || search) && (
+        <button
+          className={styles.clearButton}
+          type="button"
+          onClick={onClear}
+        >
+          Limpiar filtros
+        </button>
+      )}
     </div>
   );
 }
