@@ -1,36 +1,177 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Spybee Technical Test
 
-## Getting Started
+## 📖 Project Description
 
-First, run the development server:
+This project was developed as a technical test for **Spybee**.
+
+The application allows users to create and manage incidents, visualize them on an interactive map, and monitor them through a dashboard with filters, search, pagination, and detailed information.
+
+The project was built using reusable components and a scalable architecture to simplify future maintenance and backend integration.
+
+---
+
+# 🚀 Technologies
+
+* Next.js
+* React
+* TypeScript
+* SCSS Modules
+* Zustand
+* Mapbox GL JS
+* Lucide React
+
+---
+
+# 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+
+Go to the project folder:
+
+```bash
+cd <project-folder>
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+# ⚙️ Environment Variables
+
+Create a `.env.local` file in the project root.
+
+```env
+NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token
+```
+
+---
+
+# ▶️ Run the project
+
+Development mode:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production build:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start production server:
 
-## Learn More
+```bash
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# ✨ Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Incident Module
 
-## Deploy on Vercel
+* Create a new incident.
+* Form validation.
+* Interactive Mapbox map.
+* Incident markers.
+* Incident popup.
+* Local persistence with Zustand.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Dashboard Module
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Dashboard statistics cards.
+* Interactive cards for filtering.
+* Filter by priority.
+* Filter by status.
+* Search by incident title.
+* Clear filters button.
+* Responsive incident table.
+* Pagination.
+* Empty state for no results.
+* Incident detail modal.
+* Display assignees.
+* Display observers.
+* Display tags.
+* Display media files.
+
+---
+
+# 📂 Project Structure
+
+```text
+src
+│
+├── app
+│   ├── dashboard
+│
+├── components
+│   ├── dashboard
+│   ├── incident
+│   ├── layout
+│   └── map
+│
+├── mocks
+│
+├── store
+│
+└── types
+```
+
+---
+
+# 🏗️ Architecture
+
+The project follows a component-based architecture.
+
+Reusable components were created to improve maintainability and scalability.
+
+The dashboard is divided into independent components:
+
+* StatsCard
+* DashboardGrid
+* Filters
+* IncidentTable
+* Pagination
+* IncidentDetailModal
+
+Global state management is handled with **Zustand**, while local UI state is managed with React hooks.
+
+Mock data is used to simulate backend responses.
+
+---
+
+# 📱 Responsive Design
+
+The application is responsive and adapts to different screen sizes.
+
+The incident table supports horizontal scrolling on small devices to improve usability.
+
+---
+
+# 🔮 Future Improvements
+
+* Backend integration.
+* User authentication.
+* Export incidents to CSV.
+* Column sorting.
+* Dashboard charts.
+* Dark mode.
+* Real-time updates.
+
+---
+
+# 👩‍💻 Author
+
+Developed by **Cindy Caceres** as part of the Spybee Frontend Technical Test.
+
+Thank you for reviewing this project.
