@@ -27,7 +27,21 @@ export interface DashboardIncident {
     name: string;
     email: string;
     avatarUrl: string;
-  };
+  } | null;
+
+  assignees: {
+    id: string;
+    name: string;
+    email: string;
+    avatarUrl: string;
+  }[];
+
+  observers: {
+    id: string;
+    name: string;
+    email: string;
+    avatarUrl: string;
+  }[];
 
   coordinates: {
     lat: number;
@@ -38,6 +52,26 @@ export interface DashboardIncident {
 
   dueDate: string | null;
   closingDate: string | null;
+
+  media: {
+    id: string;
+    name: string;
+    type: string;
+    format: string;
+    size: number;
+    status: string;
+    url: string;
+  }[];
+
+  tags: {
+    id: string;
+    name: string;
+    color: string;
+  }[];
+
+  whatsappOwner: unknown | null;
+
+  deleted: unknown | null;
 
   createdAt: string;
   updatedAt: string;

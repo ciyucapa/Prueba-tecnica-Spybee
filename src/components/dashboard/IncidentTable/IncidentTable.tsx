@@ -14,7 +14,7 @@ const priorityLabels = {
 const statusLabels = {
     open: "Abierta",
     closed: "Cerrada",
-    pending: "Pendiente",
+    on_pause: "En pausa",
 };
 
 export default function IncidentTable({
@@ -43,7 +43,7 @@ export default function IncidentTable({
                             <tr key={incident.id}>
                                 <td>{incident.sequenceId}</td>
                                 <td>{incident.title}</td>
-                                <td>{incident.type.name}</td>
+                                <td>{incident.type?.name}</td>
                                 <td>
                                     <span className={`${styles.badge} ${styles[incident.priority]}`}>
                                         {
@@ -63,8 +63,8 @@ export default function IncidentTable({
                                         }
                                     </span>
                                 </td>
-                                <td>{incident.project.name}</td>
-                                <td>{incident.owner.name}</td>
+                                <td>{incident.project?.name ?? "Sin proyecto"}</td>
+                                <td>{incident.owner?.name ?? "Sin responsable"}</td>
                             </tr>
                         ))}
                     </tbody>

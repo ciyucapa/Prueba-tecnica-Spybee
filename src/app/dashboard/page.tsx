@@ -1,9 +1,14 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import styles from "./page.module.scss";
 import incidents from "@/mocks/incidents.mock.json";
 
 import StatsCard from "@/components/dashboard/StatsCard/StatsCard";
 import DashboardGrid from "@/components/dashboard/DashboardGrid/DashboardGrid";
 import IncidentTable from "@/components/dashboard/IncidentTable/IncidentTable";
-
+import Filters from "@/components/dashboard/Filters/Filters";
+import Pagination from "@/components/dashboard/Pagination/Pagination";
 
 
 export default function DashboardPage() {
@@ -38,6 +43,55 @@ export default function DashboardPage() {
         },
     ];
 
+    const [priorityFilter, setPriorityFilter] = useState("");
+    const [statusFilter, setStatusFilter] = useState("");
+    const [search, setSearch] = useState("");
+
+    const filteredIncidents = incidents.filter((incident) => {
+        const matchesPriority =
+            !priorityFilter || incident.priority === priorityFilter;
+
+        const matchesStatus =
+            !statusFilter || incident.status === statusFilter;
+
+        const matchesSearch =
+            incident.title
+                .toLowerCase()
+                .includes(search.toLowerCase());
+
+        return (
+            matchesPriority &&
+            matchesStatus &&
+            matchesSearch
+        );
+    });
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const ITEMS_PER_PAGE = 10;
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+
+    const paginatedIncidents = filteredIncidents.slice(
+        startIndex,
+        startIndex + ITEMS_PER_PAGE
+    );
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [priorityFilter, statusFilter, search]);
+
+    const from =
+        filteredIncidents.length === 0
+            ? 0
+            : startIndex + 1;
+
+    const to = Math.min(
+        startIndex + ITEMS_PER_PAGE,
+        filteredIncidents.length
+    );
+
+
     return (
         <main style={{ padding: "32px" }}>
             <DashboardGrid>
@@ -49,7 +103,29 @@ export default function DashboardPage() {
                     />
                 ))}
             </DashboardGrid>
-            <IncidentTable incidents={incidents.slice(0, 10)} />
+            <Filters
+                priority={priorityFilter}
+                status={statusFilter}
+                search={search}
+                onPriorityChange={setPriorityFilter}
+                onStatusChange={setStatusFilter}
+                onSearchChange={setSearch}
+            />
+
+            <p className={styles.results}>
+                 Mostrando {from} - {to} de {filteredIncidents.length} incidencias
+            </p>
+
+            <IncidentTable
+                incidents={paginatedIncidents}
+            />
+
+            <Pagination
+                currentPage={currentPage}
+                totalItems={filteredIncidents.length}
+                itemsPerPage={ITEMS_PER_PAGE}
+                onPageChange={setCurrentPage}
+            />
         </main>
     );
 }
