@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./page.module.scss";
-import incidents from "@/mocks/incidents.mock.json";
 
 import StatsCard from "@/components/dashboard/StatsCard/StatsCard";
 import DashboardGrid from "@/components/dashboard/DashboardGrid/DashboardGrid";
@@ -11,98 +10,29 @@ import Filters from "@/components/dashboard/Filters/Filters";
 import Pagination from "@/components/dashboard/Pagination/Pagination";
 import { DashboardIncident } from "@/types/dashboardIncident";
 import IncidentDetailModal from "@/components/dashboard/IncidentDetailModal/IncidentDetailModal";
-
-
+import { useDashboard } from "@/hooks/useDashboard"; 
+import { useDashboardStats } from "@/hooks/useDashboardStats";
 
 export default function DashboardPage() {
-    const high = incidents.filter(
-        (incident) => incident.priority === "high"
-    ).length;
+    
+    const stats = useDashboardStats();
+    const {
+        priorityFilter,
+        statusFilter,
+        search,
+        currentPage,
+        filteredIncidents,
+        paginatedIncidents,
+        from,
+        to,
+        ITEMS_PER_PAGE,
+        setPriorityFilter,
+        setStatusFilter,
+        setSearch,
+        setCurrentPage,
+        clearFilters,
+    } = useDashboard();
 
-    const medium = incidents.filter(
-        (incident) => incident.priority === "medium"
-    ).length;
-
-    const low = incidents.filter(
-        (incident) => incident.priority === "low"
-    ).length;
-
-    const stats = [
-        {
-            title: "Total incidencias",
-            value: incidents.length,
-            filter: "",
-        },
-        {
-            title: "Prioridad Alta",
-            value: high,
-            filter: "high",
-        },
-        {
-            title: "Prioridad Media",
-            value: medium,
-            filter: "medium",
-        },
-        {
-            title: "Prioridad Baja",
-            value: low,
-            filter: "low",
-        },
-    ];
-
-    const [priorityFilter, setPriorityFilter] = useState("");
-    const [statusFilter, setStatusFilter] = useState("");
-    const [search, setSearch] = useState("");
-
-    const filteredIncidents = incidents.filter((incident) => {
-        const matchesPriority =
-            !priorityFilter || incident.priority === priorityFilter;
-
-        const matchesStatus =
-            !statusFilter || incident.status === statusFilter;
-
-        const matchesSearch =
-            incident.title
-                .toLowerCase()
-                .includes(search.toLowerCase());
-
-        return (
-            matchesPriority &&
-            matchesStatus &&
-            matchesSearch
-        );
-    });
-
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const ITEMS_PER_PAGE = 10;
-
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-
-    const paginatedIncidents = filteredIncidents.slice(
-        startIndex,
-        startIndex + ITEMS_PER_PAGE
-    );
-
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [priorityFilter, statusFilter, search]);
-
-    const from =
-        filteredIncidents.length === 0
-            ? 0
-            : startIndex + 1;
-
-    const to = Math.min(
-        startIndex + ITEMS_PER_PAGE,
-        filteredIncidents.length
-    );
-
-    const clearFilters = () => {
-        setPriorityFilter("");
-        setStatusFilter("");
-        setSearch("");
-    };
 
     const [selectedIncident, setSelectedIncident] =
         useState<DashboardIncident | null>(null);
