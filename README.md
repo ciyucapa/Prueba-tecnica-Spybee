@@ -158,6 +158,30 @@ The incident table supports horizontal scrolling on small devices to improve usa
 
 ---
 
+# 📸 Screenshots
+
+## Dashboard
+
+![Dashboard](./screenshots/dashboard.png)
+
+---
+
+## Map View
+
+![Map](./screenshots/principal.png)
+
+---
+
+## Incident Form
+
+![Incident Form](./screenshots/formulario-incidencia.png)
+
+## Incident Detail
+
+![Incident Detail](./screenshots/modalIncidencia.png)
+
+---
+
 # 🔮 Future Improvements
 
 * Backend integration.
