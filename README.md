@@ -54,6 +54,32 @@ NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token
 
 ---
 
+# 📍 Coordinates
+
+When creating a new incident, the **latitude** and **longitude** fields are required to display the marker on the map.
+
+For testing purposes, you can use coordinates near **Bogotá, Colombia**, where the map is centered by default.
+
+Example:
+
+```text
+Latitude: 4.652022
+
+Longitude: -74.057720
+```
+
+You can also use nearby values:
+
+| Latitude | Longitude  |
+| -------- | ---------- |
+| 4.652022 | -74.057720 |
+| 4.653031 | -74.059136 |
+| 4.651958 | -74.057233 |
+
+If invalid coordinates are provided, the marker may not appear in the expected location on the map.
+
+---
+
 # ▶️ Run the project
 
 Development mode:
