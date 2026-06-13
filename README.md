@@ -44,6 +44,30 @@ npm install
 
 ---
 
+# 🔐 Authentication
+
+The application includes a simple authentication flow using **Zustand** with persistence.
+
+### Demo credentials
+
+```text
+Email: admin@spybee.com
+
+Password: 123456
+```
+
+### Authentication features
+
+* Login page.
+* Protected routes.
+* Persistent session using Zustand.
+* Logout functionality.
+* Automatic redirect to the login page when the user is not authenticated.
+
+After a successful login, the user is redirected to the main map view and can navigate to the dashboard from the application header.
+
+---
+
 # ⚙️ Environment Variables
 
 Create a `.env.local` file in the project root.
@@ -206,12 +230,15 @@ The incident table supports horizontal scrolling on small devices to improve usa
 
 ![Incident Detail](./screenshots/modalIncidencia.png)
 
+## Login
+
+![Login](./screenshots/login.png)
+
 ---
 
 # 🔮 Future Improvements
 
 * Backend integration.
-* User authentication.
 * Export incidents to CSV.
 * Column sorting.
 * Dashboard charts.

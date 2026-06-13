@@ -87,25 +87,59 @@
     color     : #222;
 }
 
+
 @media (max-width: 768px) {
-    .header {
-        padding: 0 16px;
-    }
+  .header {
+    padding: 0 12px;
+    height: 64px;
+  }
 
-    .title {
-        display: none;
-    }
+  .title {
+    display: none;
+  }
 
-    .user span {
-        display: none;
-    }
+  .user span {
+    display: none;
+  }
 
-    .logoutButton {
-        padding  : 0 12px;
-        font-size: 13px;
-    }
+  .logo {
+    font-size: 24px;
+  }
 
-    .logo {
-        font-size: 28px;
-    }
+  .actions {
+    gap: 8px;
+  }
+
+  .navButton,
+  .logoutButton {
+    padding: 0 10px;
+    height: 34px;
+    font-size: 12px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
 }
+
+@media (max-width: 480px) {
+  .navButton {
+    display: none;
+  }
+
+  .logoutButton {
+    padding: 0 8px;
+    font-size: 11px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .actions {
+    gap: 6px;
+  }
+}
+

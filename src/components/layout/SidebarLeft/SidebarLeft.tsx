@@ -43,6 +43,7 @@ export default function SidebarLeft() {
           alt="Avatar"
           width={48}
           height={48}
+          priority
         />
       </div>
 

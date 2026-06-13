@@ -102,6 +102,7 @@ export default function IncidentTable({
                                                 className={styles.avatar}
                                                 width={20}
                                                 height={20}
+                                                priority
                                             />
                                         )}
 

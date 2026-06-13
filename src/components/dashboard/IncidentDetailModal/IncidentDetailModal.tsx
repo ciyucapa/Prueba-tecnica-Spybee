@@ -87,6 +87,7 @@ export default function IncidentDetailModal({
                                             alt={assignee.name}
                                             width={40}
                                             height={40}
+                                            priority
                                         />
 
                                         <span>{assignee.name}</span>
@@ -109,6 +110,7 @@ export default function IncidentDetailModal({
                                             alt={observer.name}
                                             width={40}
                                             height={40}
+                                            priority
                                         />
 
                                         <span>{observer.name}</span>
@@ -153,6 +155,7 @@ export default function IncidentDetailModal({
                                                     alt={media.name}
                                                     width={300}
                                                     height={200}
+                                                    priority
                                                 />
                                             ) : (
                                                 <video controls>
